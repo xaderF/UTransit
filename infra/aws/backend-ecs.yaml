@@ -25,21 +25,13 @@ Parameters:
     Default: change-me-in-production
   CorsOrigins:
     Type: String
-    Default: 'http://localhost:8080,https://*.amazonaws.com'
-    Description: Comma-separated CORS origins
+    Default: 'http://localhost:5173,http://localhost:8080,https://*.amazonaws.com,https://*.cloudfront.net'
+    Description: Comma-separated CORS origins (CloudFront for frontend)
 
 Conditions:
   UseDbSg: !Not [!Equals [!Ref DBSecurityGroupId, '']]
 
 Resources:
-  EcrRepo:
-    Type: AWS::ECR::Repository
-    Properties:
-      RepositoryName: !Sub '${ProjectName}-backend'
-      LifecyclePolicy:
-        LifecyclePolicyText: |
-          {"rules":[{"rulePriority":1,"selection":{"tagStatus":"untagged","countType":"imageCountMoreThan","countNumber":5},"action":{"type":"expire"}}]}
-
   EcsCluster:
     Type: AWS::ECS::Cluster
     Properties:

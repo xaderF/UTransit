@@ -2,7 +2,7 @@ import { useCurrentUser, useTripHistory } from "@/hooks/use-api";
 
 const MyTripsSection = () => {
   const { data: user, isLoading: userLoading } = useCurrentUser();
-  const { data: trips, isLoading: tripsLoading } = useTripHistory(user?.id ?? null);
+  const { data: trips, isLoading: tripsLoading } = useTripHistory(user ?? null);
 
   if (userLoading || !user) return null;
 

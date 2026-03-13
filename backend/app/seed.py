@@ -24,11 +24,13 @@ def seed() -> None:
         if not user:
             user = User(
                 email="demo@utoronto.ca",
-                password_hash=hash_password("demo1234"),
                 student_id="1000000001",
                 full_name="Demo Student",
+                password_hash=hash_password("demo123"),
             )
             db.add(user)
+        elif not user.password_hash:
+            user.password_hash = hash_password("demo123")
 
         route = db.get(Route, SAMPLE_ROUTE_ID)
         if not route:

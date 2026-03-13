@@ -3,11 +3,11 @@ set -euo pipefail
 
 STACK_NAME="${STACK_NAME:-utransit-backend}"
 RDS_STACK_NAME="${RDS_STACK_NAME:-utransit-rds}"
-REGION="${AWS_REGION:-us-east-1}"
+REGION="${AWS_REGION:-us-west-2}"
 PROJECT_NAME="${PROJECT_NAME:-utransit}"
 DATABASE_URL="${DATABASE_URL:-}"
 JWT_SECRET="${JWT_SECRET:-change-me-in-production}"
-CORS_ORIGINS="${CORS_ORIGINS:-http://localhost:8080,https://*.amazonaws.com}"
+CORS_ORIGINS="${CORS_ORIGINS:-http://localhost:5173,http://localhost:8080,https://*.amazonaws.com,https://*.cloudfront.net}"
 
 if ! command -v aws >/dev/null 2>&1; then
   echo "AWS CLI required. Install and run 'aws configure'."

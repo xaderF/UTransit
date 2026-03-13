@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { api, type User } from "@/lib/api";
 
 export function useRoutes() {
   return useQuery({
@@ -16,11 +16,11 @@ export function useRouteStops(routeId: string | null) {
   });
 }
 
-export function useTripHistory(userId: string | null) {
+export function useTripHistory(user: User | null) {
   return useQuery({
-    queryKey: ["trips", userId],
-    queryFn: () => api.getTripHistory(userId!),
-    enabled: !!userId,
+    queryKey: ["trips", user?.id],
+    queryFn: () => api.getTripHistory(),
+    enabled: !!user,
   });
 }
 

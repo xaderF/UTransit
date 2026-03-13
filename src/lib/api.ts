@@ -14,9 +14,14 @@ async function fetchApi<T>(path: string, options?: RequestInit): Promise<T> {
       ...options?.headers,
     },
   });
+  if (res.status === 401) {
+    localStorage.removeItem("access_token");
+    window.dispatchEvent(new Event("auth:logout"));
+  }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.detail ?? res.statusText);
+    const msg = typeof err.detail === "string" ? err.detail : Array.isArray(err.detail) ? err.detail[0]?.msg ?? res.statusText : res.statusText;
+    throw new Error(msg);
   }
   return res.json();
 }
@@ -57,7 +62,6 @@ export interface User {
 export const api = {
   getRoutes: () => fetchApi<Route[]>("/api/v1/routes"),
   getRouteStops: (routeId: string) => fetchApi<RouteStop[]>(`/api/v1/routes/${routeId}/stops`),
-  getTripHistory: (userId: string, limit = 20) =>
-    fetchApi<Trip[]>(`/api/v1/trips/history?user_id=${userId}&limit=${limit}`),
+  getTripHistory: (limit = 20) => fetchApi<Trip[]>(`/api/v1/trips/history?limit=${limit}`),
   getCurrentUser: () => fetchApi<User>("/api/v1/auth/me"),
 };

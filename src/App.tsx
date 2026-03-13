@@ -1,4 +1,5 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,8 +9,19 @@ import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
 
+const AuthListener = () => {
+  const qc = useQueryClient();
+  useEffect(() => {
+    const handler = () => qc.invalidateQueries({ queryKey: ["me"] });
+    window.addEventListener("auth:logout", handler);
+    return () => window.removeEventListener("auth:logout", handler);
+  }, [qc]);
+  return null;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <AuthListener />
     <TooltipProvider>
       <Toaster />
       <Sonner />
