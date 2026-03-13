@@ -1,8 +1,14 @@
 import { useState } from "react";
+<<<<<<< HEAD
 
 const basicsAutoload = "https://placehold.co/288x180/0066CC/ffffff?text=AutoLoad";
 const basicsFares = "https://placehold.co/288x180/0066CC/ffffff?text=Fares";
 const basicsRefund = "https://placehold.co/288x180/0066CC/ffffff?text=Refund";
+=======
+import basicsAutoload from "@/assets/basics-autoload.jpg";
+import basicsFares from "@/assets/basics-fares.jpg";
+import basicsRefund from "@/assets/basics-refund.jpg";
+>>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
 
 const tabs = [
   {

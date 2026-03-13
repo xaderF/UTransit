@@ -1,4 +1,5 @@
 import { useState } from "react";
+<<<<<<< HEAD
 
 const iconProtect = "https://placehold.co/96x96/0066CC/ffffff?text=Protect";
 const iconPayment = "https://placehold.co/96x96/0066CC/ffffff?text=Pay";
@@ -32,6 +33,16 @@ const RegisterSection = () => {
       setLoading(false);
     }
   };
+=======
+import iconProtect from "@/assets/icon-protect.png";
+import iconPayment from "@/assets/icon-payment.png";
+import iconAutoload from "@/assets/icon-autoload.png";
+
+const RegisterSection = () => {
+  const [cardNumber, setCardNumber] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
+  const [accepted, setAccepted] = useState(false);
+>>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
 
   return (
     <section className="bg-background py-10">
@@ -66,6 +77,7 @@ const RegisterSection = () => {
             </div>
           </div>
 
+<<<<<<< HEAD
           {/* Right: Sign in */}
           <div className="lg:w-[340px] border border-border rounded-sm p-6 bg-background" id="sign-in">
             <h3 className="text-lg font-bold text-foreground mb-2">Sign in</h3>
@@ -101,6 +113,49 @@ const RegisterSection = () => {
                 {loading ? "Signing in..." : "Sign in"}
               </button>
             </form>
+=======
+          {/* Right: check balance */}
+          <div className="lg:w-[340px] border border-border rounded-sm p-6 bg-background">
+            <h3 className="text-lg font-bold text-foreground mb-2">Check your card balance</h3>
+            <p className="text-sm text-muted-foreground mb-4">Check balance or load fares as a guest.</p>
+
+            <label className="block text-sm font-semibold text-foreground mb-1">Compass Card number:</label>
+            <p className="text-xs text-muted-foreground mb-2">20-digit number on the back of your card.</p>
+            <input
+              type="text"
+              value={cardNumber}
+              onChange={(e) => setCardNumber(e.target.value)}
+              className="w-full border border-input rounded-sm px-3 py-2 text-sm text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring mb-4"
+              maxLength={20}
+            />
+
+            <label className="block text-sm font-semibold text-foreground mb-1">Security code:</label>
+            <p className="text-xs text-muted-foreground mb-2">3-digit number on the back of your card.</p>
+            <input
+              type="text"
+              value={securityCode}
+              onChange={(e) => setSecurityCode(e.target.value)}
+              className="w-28 border border-input rounded-sm px-3 py-2 text-sm text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring mb-4"
+              maxLength={3}
+            />
+
+            <div className="flex items-start gap-2 mb-4">
+              <input
+                type="checkbox"
+                checked={accepted}
+                onChange={(e) => setAccepted(e.target.checked)}
+                className="mt-1 accent-primary"
+                id="terms"
+              />
+              <label htmlFor="terms" className="text-xs text-muted-foreground">
+                I accept the <a href="#" className="text-secondary underline">terms and conditions</a>
+              </label>
+            </div>
+
+            <button className="w-full bg-secondary text-secondary-foreground font-semibold py-2.5 rounded-sm text-sm hover:opacity-90 transition-opacity">
+              Check balance
+            </button>
+>>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
           </div>
         </div>
       </div>

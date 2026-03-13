@@ -2,7 +2,10 @@ from datetime import datetime, timedelta
 
 from sqlalchemy import select
 
+<<<<<<< HEAD
 from app.auth import hash_password
+=======
+>>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
 from app.database import Base, SessionLocal, engine
 from app.models import Route, RouteStop, Stop, Trip, TripStatus, User
 
@@ -22,12 +25,16 @@ def seed() -> None:
     try:
         user = db.scalar(select(User).where(User.email == "demo@utoronto.ca"))
         if not user:
+<<<<<<< HEAD
             user = User(
             email="demo@utoronto.ca",
             password_hash=hash_password("demo1234"),
             student_id="1000000001",
             full_name="Demo Student",
         )
+=======
+            user = User(email="demo@utoronto.ca", student_id="1000000001", full_name="Demo Student")
+>>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
             db.add(user)
 
         route = db.get(Route, SAMPLE_ROUTE_ID)
