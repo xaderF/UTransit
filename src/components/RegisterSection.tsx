@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import { SIGN_IN_OPEN_EVENT } from "@/components/SignInDialog";
 import { useCurrentUser } from "@/hooks/use-api";
+import TicketPurchaseSection from "@/components/TicketPurchaseSection";
 
 import iconAutoload from "@/assets/icon-autoload.png";
 import iconPayment from "@/assets/icon-payment.png";
 import iconProtect from "@/assets/icon-protect.png";
 
-const RegisterSection = () => {
-  const { data: user } = useCurrentUser();
-
+const StudentAccessSection = () => {
   const handleOpenTopSignIn = () => {
     window.scrollTo({ top: 0, behavior: "auto" });
     window.dispatchEvent(new Event(SIGN_IN_OPEN_EVENT));
@@ -66,6 +65,17 @@ const RegisterSection = () => {
       </div>
     </section>
   );
+};
+
+const RegisterSection = () => {
+  const { data: user, isLoading } = useCurrentUser();
+
+  // When loading with a token, show TicketPurchaseSection (same layout) to avoid flash
+  if (isLoading || user) {
+    return <TicketPurchaseSection />;
+  }
+
+  return <StudentAccessSection />;
 };
 
 export default RegisterSection;
