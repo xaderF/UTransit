@@ -26,9 +26,17 @@ const RegisterSection = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.detail ?? "Sign in failed");
-      localStorage.setItem("access_token", data.access_token);
+      let data: { detail?: string | { msg?: string }[]; access_token?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        /* non-JSON response (e.g. HTML error page) */
+      }
+      if (!res.ok) {
+        const msg = typeof data.detail === "string" ? data.detail : Array.isArray(data.detail) ? data.detail[0]?.msg : null;
+        throw new Error(msg ?? res.statusText ?? "Sign in failed");
+      }
+      if (data.access_token) localStorage.setItem("access_token", data.access_token);
       window.location.reload();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign in failed");
@@ -48,8 +56,16 @@ const RegisterSection = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, full_name: fullName || undefined }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.detail ?? "Registration failed");
+      let data: { detail?: string | { msg?: string }[] } = {};
+      try {
+        data = await res.json();
+      } catch {
+        /* non-JSON response (e.g. HTML error page) */
+      }
+      if (!res.ok) {
+        const msg = typeof data.detail === "string" ? data.detail : Array.isArray(data.detail) ? data.detail[0]?.msg : null;
+        throw new Error(msg ?? res.statusText ?? "Registration failed");
+      }
       setSuccess("Account created. You can now sign in.");
       setMode("signin");
       setEmail("");

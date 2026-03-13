@@ -5,6 +5,16 @@ function getAuthHeader(): Record<string, string> {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+async function parseJsonSafe(res: Response): Promise<unknown> {
+  try {
+    const text = await res.text();
+    if (!text) return {};
+    return JSON.parse(text);
+  } catch {
+    return {};
+  }
+}
+
 async function fetchApi<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     ...options,
@@ -18,12 +28,13 @@ async function fetchApi<T>(path: string, options?: RequestInit): Promise<T> {
     localStorage.removeItem("access_token");
     window.dispatchEvent(new Event("auth:logout"));
   }
+  const data = await parseJsonSafe(res);
   if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
+    const err = data as { detail?: string | { msg?: string }[] };
     const msg = typeof err.detail === "string" ? err.detail : Array.isArray(err.detail) ? err.detail[0]?.msg ?? res.statusText : res.statusText;
     throw new Error(msg);
   }
-  return res.json();
+  return data as T;
 }
 
 export interface Route {

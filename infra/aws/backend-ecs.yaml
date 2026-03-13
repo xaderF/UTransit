@@ -171,6 +171,7 @@ Resources:
             Options:
               awslogs-group: !Ref LogGroup
               awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: ecs
           Environment:
             - Name: DATABASE_URL
               Value: !Ref DatabaseUrl

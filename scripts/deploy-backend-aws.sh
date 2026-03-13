@@ -58,12 +58,8 @@ echo "Creating ECR repository if needed..."
 aws ecr describe-repositories --region "${REGION}" --repository-names "${PROJECT_NAME}-backend" 2>/dev/null || \
   aws ecr create-repository --region "${REGION}" --repository-name "${PROJECT_NAME}-backend"
 
-echo "Building Docker image..."
-docker build -t "${PROJECT_NAME}-backend:latest" ./backend
-
-echo "Tagging and pushing..."
-docker tag "${PROJECT_NAME}-backend:latest" "${ECR_URI}:latest"
-docker push "${ECR_URI}:latest"
+echo "Building and pushing Docker image for linux/amd64 (ECS Fargate)..."
+docker buildx build --platform linux/amd64 -t "${ECR_URI}:latest" --push ./backend
 
 echo "Deploying CloudFormation stack ${STACK_NAME}..."
 PARAMS=(

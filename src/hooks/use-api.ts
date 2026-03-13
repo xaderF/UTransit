@@ -24,10 +24,24 @@ export function useTripHistory(user: User | null) {
   });
 }
 
+function isTokenValid(): boolean {
+  if (typeof window === "undefined") return false;
+  const token = localStorage.getItem("access_token");
+  if (!token) return false;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.exp && payload.exp * 1000 > Date.now();
+  } catch {
+    return false;
+  }
+}
+
 export function useCurrentUser() {
+  const hasValidToken = isTokenValid();
   return useQuery({
-    queryKey: ["me"],
+    queryKey: ["me", hasValidToken],
     queryFn: () => api.getCurrentUser(),
+    enabled: hasValidToken,
     retry: false,
     staleTime: 5 * 60 * 1000,
   });
