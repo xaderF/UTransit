@@ -1,73 +1,196 @@
-# Welcome to your Lovable project
+# UTransit (Temporary Name)
 
-## Project info
+UTransit is a campus-focused transit app concept for University of Toronto students.  
+It combines route discovery, trip planning, shuttle access, and wallet/ticket management in one system.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Potential final names:
+- UTransit
+- BlueTransit
+- UFlow
 
-## How can I edit this code?
+## Problem
 
-There are several ways of editing your application.
+UofT students currently use disconnected tools:
+- TTC fares: Presto
+- Campus shuttle schedules: scattered PDFs
+- Live bus info: third-party apps
+- Pass/ticket management: no unified student-focused portal
 
-**Use Lovable**
+UTransit aims to unify these into a single experience across:
+- St. George campus
+- Scarborough campus
+- Mississauga campus
+- Nearby TTC connections
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## MVP Goals
 
-Changes made via Lovable will be committed automatically to this repo.
+### 1. Account
+- Email/Google login
+- Student ID linking
+- Profile management
 
-**Use your preferred IDE**
+### 2. Route Explorer
+- Campus route map
+- Stops and schedule visibility
+- Nearest stop + next arrival
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 3. Trip Planner
+- Start + destination input
+- Route + walking segments + transfers
+- Arrival estimates
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 4. Pass + Ticket Wallet
+- Student pass
+- Guest ticket
+- Semester pass
+- QR ticket display and validation support
 
-Follow these steps:
+### 5. Ride Tracking
+- Current bus location (MVP: schedule-based or driver GPS feed)
+- ETA display
+- Basic crowding estimate (optional early MVP)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 6. Trip History
+- Recent rides
+- Charges/pass usage
+- Wallet activity
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Core Product Model (Compass-Inspired)
 
-# Step 3: Install the necessary dependencies.
-npm i
+- Account system: identity, payment methods, usage history, auto-reload
+- Transit payment/ticketing: fare or pass validation, zone logic where needed
+- Rider history: trips, charges, balance/pass status
+- Management portal: fund loading, card/pass freeze, card/pass replacement
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## Recommended Stack
+
+### Backend
+- Node.js + Fastify
+- PostgreSQL
+- Prisma
+- Redis (caching)
+- WebSockets (real-time updates)
+
+### Frontend (Web)
+- Next.js
+- Tailwind CSS
+- Mapbox GL
+
+### Mobile
+- React Native + Expo (fast MVP path)
+
+## Service Layout (Initial)
+
+- `auth-service`
+- `transit-service`
+- `ticket-service`
+- `location-service`
+
+Example APIs:
+- `GET /routes`
+- `GET /routes/:id/stops`
+- `GET /stops/:id/arrivals`
+- `POST /tickets/purchase`
+- `GET /trips/history`
+
+## Initial Data Model
+
+Key tables:
+- `users`
+- `passes`
+- `tickets`
+- `routes`
+- `stops`
+- `buses`
+- `trips`
+- `payments`
+
+Example fields:
+
+```sql
+users (
+  id,
+  email,
+  student_id,
+  created_at
+)
+
+routes (
+  id,
+  name,
+  campus,
+  color
+)
+
+stops (
+  id,
+  name,
+  lat,
+  lng,
+  route_id
+)
 ```
 
-**Edit a file directly in GitHub**
+## Real-Time Events
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+WebSocket channels:
+- `bus_location_updates`
+- `arrival_updates`
 
-**Use GitHub Codespaces**
+Driver or system feeds may send:
+- latitude / longitude
+- speed
+- route id
+- timestamp
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Data Sources
 
-## What technologies are used for this project?
+Use GTFS-compatible feeds where available:
+- `routes.txt`
+- `trips.txt`
+- `stop_times.txt`
+- `stops.txt`
 
-This project is built with:
+Possible integrations:
+- OpenTripPlanner
+- GTFS processing libraries
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## MVP Timeline (5 Weeks)
 
-## How can I deploy this project?
+### Week 1
+- Product planning
+- Database schema
+- Route/stop ingestion model
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+### Week 2
+- Core backend APIs
+- Arrival prediction baseline
 
-## Can I connect a custom domain to my Lovable project?
+### Week 3
+- Web map with route overlays + stop markers
 
-Yes, you can!
+### Week 4
+- Wallet, passes, QR tickets, payment wiring
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Week 5
+- Mobile MVP (map, trip planner, wallet)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Longer-Term Features
+
+- Smart fare caps (daily/monthly)
+- Student pricing rules engine
+- Better crowding prediction
+- NFC support (Apple Pay / Google Pay pathways)
+
+## Why This Project Matters
+
+UTransit demonstrates:
+- distributed service design
+- real-time systems
+- geo/transit data modeling
+- payment and wallet architecture
+- web + mobile product execution
+
+## Status
+
+This repository currently contains product planning documentation for MVP definition and architecture direction.
