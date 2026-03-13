@@ -5,8 +5,5 @@ psycopg[binary]==3.2.13
 pydantic-settings==2.8.1
 python-dotenv==1.0.1
 email-validator==2.2.0
-<<<<<<< HEAD
 bcrypt==4.2.0
 python-jose[cryptography]==3.3.0
-=======
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0

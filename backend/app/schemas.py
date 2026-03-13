@@ -1,11 +1,7 @@
 from datetime import datetime
 from enum import Enum
 
-<<<<<<< HEAD
 from pydantic import BaseModel, ConfigDict, EmailStr, field_validator
-=======
-from pydantic import BaseModel, ConfigDict, EmailStr
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
 
 
 class TicketType(str, Enum):
@@ -23,7 +19,6 @@ class TicketStatus(str, Enum):
 
 class UserCreate(BaseModel):
     email: EmailStr
-<<<<<<< HEAD
     password: str
     student_id: str | None = None
     full_name: str | None = None
@@ -45,11 +40,6 @@ class TokenOut(BaseModel):
     access_token: str
     token_type: str = "bearer"
 
-=======
-    student_id: str | None = None
-    full_name: str | None = None
-
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
 
 class UserOut(BaseModel):
     id: str

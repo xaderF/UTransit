@@ -53,10 +53,7 @@ class User(Base):
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
-<<<<<<< HEAD
     password_hash: Mapped[str | None] = mapped_column(String(255), nullable=True)
-=======
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
     student_id: Mapped[str | None] = mapped_column(String(64), unique=True, nullable=True)
     full_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)

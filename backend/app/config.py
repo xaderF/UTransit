@@ -1,6 +1,18 @@
 from functools import lru_cache
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _strip_schema_param(url: str) -> str:
+    """Remove schema= from URL - psycopg doesn't support it (Prisma-specific)."""
+    parsed = urlparse(url)
+    if not parsed.query:
+        return url
+    params = parse_qs(parsed.query, keep_blank_values=True)
+    params.pop("schema", None)
+    new_query = urlencode(params, doseq=True)
+    return urlunparse(parsed._replace(query=new_query))
 
 
 class Settings(BaseSettings):
@@ -8,20 +20,18 @@ class Settings(BaseSettings):
     app_env: str = "development"
     app_port: int = 8000
     database_url: str = "sqlite:///./utransit.db"
-    cors_origins: str = "http://localhost:5173,http://localhost:3000"
-<<<<<<< HEAD
+    cors_origins: str = "http://localhost:5173,http://localhost:3000,http://localhost:8080"
     jwt_secret: str = "change-me-in-production"
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 60 * 24  # 24 hours
-=======
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     @property
     def sqlalchemy_database_url(self) -> str:
         if self.database_url.startswith("postgresql://"):
-            return self.database_url.replace("postgresql://", "postgresql+psycopg://", 1)
+            url = _strip_schema_param(self.database_url)
+            return url.replace("postgresql://", "postgresql+psycopg://", 1)
         return self.database_url
 
     @property
