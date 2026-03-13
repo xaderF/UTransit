@@ -58,7 +58,7 @@ DATABASE_URL="postgresql://utransit_admin:<PASSWORD>@<ENDPOINT>:5432/utransit?ss
 Install and run:
 
 ```bash
-python3 -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000

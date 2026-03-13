@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from sqlalchemy import select
 
-from app.database import SessionLocal
+from app.database import Base, SessionLocal, engine
 from app.models import Route, RouteStop, Stop, Trip, TripStatus, User
 
 
@@ -15,6 +15,8 @@ SAMPLE_STOPS = [
 
 
 def seed() -> None:
+    Base.metadata.create_all(bind=engine)
+
     db = SessionLocal()
     try:
         user = db.scalar(select(User).where(User.email == "demo@utoronto.ca"))
