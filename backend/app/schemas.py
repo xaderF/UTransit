@@ -21,6 +21,8 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str
     student_id: str | None = None
+    utorid: str | None = None
+    is_student: bool = True
     full_name: str | None = None
 
     @field_validator("password", mode="before")
@@ -45,6 +47,8 @@ class UserOut(BaseModel):
     id: str
     email: EmailStr
     student_id: str | None = None
+    utorid: str | None = None
+    is_student: bool = True
     full_name: str | None = None
     created_at: datetime
 

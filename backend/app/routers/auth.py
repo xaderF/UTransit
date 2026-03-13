@@ -37,10 +37,17 @@ def register(payload: UserCreate, db: Session = Depends(get_db)) -> User:
         if student_exists:
             raise HTTPException(status_code=409, detail="Student ID already exists")
 
+    if payload.utorid:
+        utorid_exists = db.scalar(select(User).where(User.utorid == payload.utorid))
+        if utorid_exists:
+            raise HTTPException(status_code=409, detail="UTORid already registered")
+
     user = User(
         email=payload.email,
         password_hash=hash_password(payload.password),
         student_id=payload.student_id,
+        utorid=payload.utorid,
+        is_student=payload.is_student,
         full_name=payload.full_name,
     )
     db.add(user)

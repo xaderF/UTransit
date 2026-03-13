@@ -55,6 +55,8 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     password_hash: Mapped[str | None] = mapped_column(String(255), nullable=True)
     student_id: Mapped[str | None] = mapped_column(String(64), unique=True, nullable=True)
+    utorid: Mapped[str | None] = mapped_column(String(64), unique=True, nullable=True)
+    is_student: Mapped[bool] = mapped_column(default=True, nullable=False)
     full_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
