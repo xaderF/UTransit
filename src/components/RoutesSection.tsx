@@ -10,7 +10,7 @@ const RoutesSection = () => {
     return (
       <section className="bg-card py-10" id="routes">
         <div className="max-w-[1080px] mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Routes</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Route Explorer</h2>
           <p className="text-muted-foreground">Loading routes...</p>
         </div>
       </section>
@@ -21,7 +21,7 @@ const RoutesSection = () => {
     return (
       <section className="bg-card py-10" id="routes">
         <div className="max-w-[1080px] mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Routes</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Route Explorer</h2>
           <p className="text-destructive">Unable to load routes. Make sure the backend is running.</p>
         </div>
       </section>
@@ -31,7 +31,10 @@ const RoutesSection = () => {
   return (
     <section className="bg-card py-10" id="routes">
       <div className="max-w-[1080px] mx-auto px-4">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Campus routes</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-2">Route Explorer</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          Find campus bus routes and stops.
+        </p>
 
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-64 flex-shrink-0">

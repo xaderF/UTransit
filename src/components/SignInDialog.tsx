@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -9,10 +9,13 @@ import {
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
+export const SIGN_IN_OPEN_EVENT = "utransit:open-signin";
+
 type SignInDialogProps = {
   triggerClassName?: string;
   triggerLabel?: string;
   onTriggerClick?: () => void;
+  openEventName?: string;
 };
 
 const inputClass =
@@ -23,12 +26,21 @@ const SignInDialog = ({
   triggerClassName = "",
   triggerLabel = "Sign In",
   onTriggerClick,
+  openEventName,
 }: SignInDialogProps) => {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!openEventName) return;
+
+    const openFromEvent = () => setOpen(true);
+    window.addEventListener(openEventName, openFromEvent);
+    return () => window.removeEventListener(openEventName, openFromEvent);
+  }, [openEventName]);
 
   const handleSignIn = async (e: FormEvent) => {
     e.preventDefault();

@@ -48,6 +48,39 @@
     --hero-banner-bg: 205 100% 31%;
     --hero-notice-bg: 195 100% 44%;
   }
+
+  .dark {
+    --background: 220 20% 12%;
+    --foreground: 210 40% 96%;
+
+    --card: 220 20% 16%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 220 20% 16%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 205 100% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 195 100% 44%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 16% 20%;
+    --muted-foreground: 220 10% 70%;
+
+    --accent: 195 100% 44%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 14% 28%;
+    --input: 220 14% 28%;
+    --ring: 205 100% 39%;
+
+    --hero-banner-bg: 205 100% 22%;
+    --hero-notice-bg: 195 100% 35%;
+  }
 }
 
 @layer base {

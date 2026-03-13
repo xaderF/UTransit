@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
-import SignInDialog from "@/components/SignInDialog";
+import { SIGN_IN_OPEN_EVENT } from "@/components/SignInDialog";
 
 import iconAutoload from "@/assets/icon-autoload.png";
 import iconPayment from "@/assets/icon-payment.png";
 import iconProtect from "@/assets/icon-protect.png";
 
 const RegisterSection = () => {
+  const handleOpenTopSignIn = () => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+    window.dispatchEvent(new Event(SIGN_IN_OPEN_EVENT));
+  };
+
   return (
     <section className="bg-background py-10" id="sign-in">
       <div className="max-w-[1080px] mx-auto px-4">
@@ -35,9 +40,13 @@ const RegisterSection = () => {
           </Link>
 
           <div className="mt-3">
-            <SignInDialog
-              triggerClassName="inline-block border border-border text-foreground font-semibold px-10 py-3 rounded-sm text-sm hover:bg-muted transition-colors"
-            />
+            <button
+              type="button"
+              onClick={handleOpenTopSignIn}
+              className="inline-block border border-border text-foreground font-semibold px-10 py-3 rounded-sm text-sm hover:bg-muted transition-colors"
+            >
+              Sign In
+            </button>
           </div>
         </div>
       </div>

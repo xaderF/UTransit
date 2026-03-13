@@ -15,9 +15,9 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-3">Student Transit</h4>
             <ul className="space-y-2 text-primary-foreground/80">
+              <li><a href="/routes" className="hover:text-primary-foreground transition-colors">Route Explorer</a></li>
+              <li><a href="/my-trips" className="hover:text-primary-foreground transition-colors">My Trips</a></li>
               <li><a href="/#tickets" className="hover:text-primary-foreground transition-colors">Buy Tickets Online</a></li>
-              <li><a href="/#sign-in" className="hover:text-primary-foreground transition-colors">Load TBucks</a></li>
-              <li><a href="/#sign-in" className="hover:text-primary-foreground transition-colors">Student ID Swipe Setup</a></li>
             </ul>
           </div>
 

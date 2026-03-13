@@ -6,6 +6,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import Register from "./pages/Register.tsx";
+import RoutesPage from "./pages/Routes.tsx";
+import MyTrips from "./pages/MyTrips.tsx";
+import Profile from "./pages/Profile.tsx";
+import Settings from "./pages/Settings.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -30,6 +34,11 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/routes" element={<RoutesPage />} />
+          <Route path="/my-trips" element={<MyTrips />} />
+          <Route path="/tickets" element={<MyTrips />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
