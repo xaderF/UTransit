@@ -1,161 +1,128 @@
 import { useState } from "react";
-<<<<<<< HEAD
 
-const iconProtect = "https://placehold.co/96x96/0066CC/ffffff?text=Protect";
-const iconPayment = "https://placehold.co/96x96/0066CC/ffffff?text=Pay";
-const iconAutoload = "https://placehold.co/96x96/0066CC/ffffff?text=AutoLoad";
-
-const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
-
-const RegisterSection = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      const res = await fetch(`${API_BASE}/api/v1/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.detail ?? "Sign in failed");
-      localStorage.setItem("access_token", data.access_token);
-      window.location.reload();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign in failed");
-    } finally {
-      setLoading(false);
-    }
-  };
-=======
-import iconProtect from "@/assets/icon-protect.png";
-import iconPayment from "@/assets/icon-payment.png";
 import iconAutoload from "@/assets/icon-autoload.png";
+import iconPayment from "@/assets/icon-payment.png";
+import iconProtect from "@/assets/icon-protect.png";
+import Stepper, { Step } from "@/components/Stepper";
+
+const inputClassName =
+  "w-full border border-input rounded-sm px-3 py-2 text-sm text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring";
 
 const RegisterSection = () => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [securityCode, setSecurityCode] = useState("");
-  const [accepted, setAccepted] = useState(false);
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
+  const [name, setName] = useState("");
+  const [uoftEmail, setUoftEmail] = useState("");
+  const [utorid, setUtorid] = useState("");
+  const [tcardNumber, setTcardNumber] = useState("");
+  const [tbucksEnabled, setTbucksEnabled] = useState(false);
+  const [stepCompleted, setStepCompleted] = useState(false);
 
   return (
     <section className="bg-background py-10">
       <div className="max-w-[1080px] mx-auto px-4">
-        <h2 className="text-2xl font-bold text-foreground mb-8">Register your Compass Card</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-8">Register your UTransit account</h2>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left: benefits */}
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="text-center">
-                <img src={iconProtect} alt="Balance protection" className="w-24 h-24 mx-auto mb-3 object-contain" />
-                <p className="text-sm text-foreground">Protect your balance on a lost or stolen Compass Card.</p>
+                <img src={iconProtect} alt="Secure account" className="w-24 h-24 mx-auto mb-3 object-contain" />
+                <p className="text-sm text-foreground">Protect your transit wallet and linked student profile.</p>
               </div>
               <div className="text-center">
-                <img src={iconPayment} alt="Store payment info" className="w-24 h-24 mx-auto mb-3 object-contain" />
-                <p className="text-sm text-foreground">Store your payment info for future purchases.</p>
+                <img src={iconPayment} alt="Wallet and passes" className="w-24 h-24 mx-auto mb-3 object-contain" />
+                <p className="text-sm text-foreground">Manage TBucks-style wallet, passes, and ticket payments in one place.</p>
               </div>
               <div className="text-center">
-                <img src={iconAutoload} alt="AutoLoad" className="w-24 h-24 mx-auto mb-3 object-contain" />
-                <p className="text-sm text-foreground">Set automatic payments, enroll in the Bike Parkade program, and more.</p>
+                <img src={iconAutoload} alt="Auto load" className="w-24 h-24 mx-auto mb-3 object-contain" />
+                <p className="text-sm text-foreground">Set up auto-reload and account links for a faster ride experience.</p>
               </div>
-            </div>
-
-            <div className="mt-8 text-center">
-              <a
-                href="#"
-                className="inline-block bg-secondary text-secondary-foreground font-semibold px-10 py-3 rounded-sm text-sm hover:opacity-90 transition-opacity"
-              >
-                Register
-              </a>
             </div>
           </div>
 
-<<<<<<< HEAD
-          {/* Right: Sign in */}
-          <div className="lg:w-[340px] border border-border rounded-sm p-6 bg-background" id="sign-in">
-            <h3 className="text-lg font-bold text-foreground mb-2">Sign in</h3>
-            <p className="text-sm text-muted-foreground mb-4">Sign in with your email and password.</p>
+          <div className="lg:w-[420px] border border-border rounded-sm p-6 bg-background" id="sign-in">
+            <h3 className="text-lg font-bold text-foreground mb-2">UofT Student Setup</h3>
+            <p className="text-sm text-muted-foreground mb-4">Complete all 4 steps to connect your student transit profile.</p>
 
-            <form onSubmit={handleSignIn}>
-              <label className="block text-sm font-semibold text-foreground mb-1">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
-                className="w-full border border-input rounded-sm px-3 py-2 text-sm text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring mb-4"
-              />
+            <Stepper
+              initialStep={1}
+              onStepChange={() => setStepCompleted(false)}
+              onFinalStepCompleted={() => setStepCompleted(true)}
+              backButtonText="Previous"
+              nextButtonText="Next"
+            >
+              <Step>
+                <h4 className="text-base font-semibold text-foreground">Step 1: Student details</h4>
+                <p className="text-sm text-muted-foreground">Enter your basic profile information.</p>
 
-              <label className="block text-sm font-semibold text-foreground mb-1">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full border border-input rounded-sm px-3 py-2 text-sm text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring mb-4"
-              />
+                <input
+                  className={inputClassName}
+                  placeholder="Full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  className={inputClassName}
+                  placeholder="UofT email (example@mail.utoronto.ca)"
+                  value={uoftEmail}
+                  onChange={(e) => setUoftEmail(e.target.value)}
+                />
+              </Step>
 
-              {error && <p className="text-sm text-destructive mb-4">{error}</p>}
+              <Step>
+                <h4 className="text-base font-semibold text-foreground">Step 2: Connect UofT account</h4>
+                <p className="text-sm text-muted-foreground">Placeholder for UofT SSO/account verification.</p>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-secondary text-secondary-foreground font-semibold py-2.5 rounded-sm text-sm hover:opacity-90 transition-opacity disabled:opacity-70"
-              >
-                {loading ? "Signing in..." : "Sign in"}
-              </button>
-            </form>
-=======
-          {/* Right: check balance */}
-          <div className="lg:w-[340px] border border-border rounded-sm p-6 bg-background">
-            <h3 className="text-lg font-bold text-foreground mb-2">Check your card balance</h3>
-            <p className="text-sm text-muted-foreground mb-4">Check balance or load fares as a guest.</p>
+                <input
+                  className={inputClassName}
+                  placeholder="UTORid"
+                  value={utorid}
+                  onChange={(e) => setUtorid(e.target.value)}
+                />
+                <select className={inputClassName} defaultValue="uoft-sso">
+                  <option value="uoft-sso">Connect with UofT SSO</option>
+                  <option value="manual">Manual verification (placeholder)</option>
+                </select>
+              </Step>
 
-            <label className="block text-sm font-semibold text-foreground mb-1">Compass Card number:</label>
-            <p className="text-xs text-muted-foreground mb-2">20-digit number on the back of your card.</p>
-            <input
-              type="text"
-              value={cardNumber}
-              onChange={(e) => setCardNumber(e.target.value)}
-              className="w-full border border-input rounded-sm px-3 py-2 text-sm text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring mb-4"
-              maxLength={20}
-            />
+              <Step>
+                <h4 className="text-base font-semibold text-foreground">Step 3: Connect TCard/TBucks</h4>
+                <p className="text-sm text-muted-foreground">Placeholder for TCard and TBucks linking flow.</p>
 
-            <label className="block text-sm font-semibold text-foreground mb-1">Security code:</label>
-            <p className="text-xs text-muted-foreground mb-2">3-digit number on the back of your card.</p>
-            <input
-              type="text"
-              value={securityCode}
-              onChange={(e) => setSecurityCode(e.target.value)}
-              className="w-28 border border-input rounded-sm px-3 py-2 text-sm text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring mb-4"
-              maxLength={3}
-            />
+                <input
+                  className={inputClassName}
+                  placeholder="TCard number"
+                  value={tcardNumber}
+                  onChange={(e) => setTcardNumber(e.target.value)}
+                />
 
-            <div className="flex items-start gap-2 mb-4">
-              <input
-                type="checkbox"
-                checked={accepted}
-                onChange={(e) => setAccepted(e.target.checked)}
-                className="mt-1 accent-primary"
-                id="terms"
-              />
-              <label htmlFor="terms" className="text-xs text-muted-foreground">
-                I accept the <a href="#" className="text-secondary underline">terms and conditions</a>
-              </label>
-            </div>
+                <label className="flex items-center gap-2 text-sm text-foreground">
+                  <input
+                    type="checkbox"
+                    className="accent-primary"
+                    checked={tbucksEnabled}
+                    onChange={(e) => setTbucksEnabled(e.target.checked)}
+                  />
+                  Enable TBucks wallet sync (placeholder)
+                </label>
+              </Step>
 
-            <button className="w-full bg-secondary text-secondary-foreground font-semibold py-2.5 rounded-sm text-sm hover:opacity-90 transition-opacity">
-              Check balance
-            </button>
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
+              <Step>
+                <h4 className="text-base font-semibold text-foreground">Step 4: Review</h4>
+                <p className="text-sm text-muted-foreground">Final placeholder review before real backend submission.</p>
+
+                <div className="text-sm text-foreground space-y-1">
+                  <p><strong>Name:</strong> {name || "-"}</p>
+                  <p><strong>UofT Email:</strong> {uoftEmail || "-"}</p>
+                  <p><strong>UTORid:</strong> {utorid || "-"}</p>
+                  <p><strong>TCard:</strong> {tcardNumber || "-"}</p>
+                  <p><strong>TBucks Sync:</strong> {tbucksEnabled ? "Enabled" : "Not enabled"}</p>
+                </div>
+              </Step>
+            </Stepper>
+
+            {stepCompleted && (
+              <p className="mt-4 text-sm font-semibold text-green-600">Setup flow completed. Backend submission can be connected next.</p>
+            )}
           </div>
         </div>
       </div>

@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-const heroTap =
-  "https://placehold.co/320x240/0066CC/ffffff?text=Tap+Card";
-=======
 import heroTap from "@/assets/hero-tap.png";
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
 
 const HeroBanner = () => {
   return (
@@ -18,11 +13,7 @@ const HeroBanner = () => {
               Automatically reload your pass or stored value and never worry about having sufficient fare.
             </p>
             <a
-<<<<<<< HEAD
               href="#sign-in"
-=======
-              href="#"
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
               className="inline-block bg-secondary text-secondary-foreground font-semibold px-8 py-3 rounded-sm text-sm hover:opacity-90 transition-opacity"
             >
               Sign in
@@ -37,7 +28,6 @@ const HeroBanner = () => {
           </div>
         </div>
 
-        {/* Notice bar */}
         <div className="bg-hero-notice text-secondary-foreground px-6 py-3 rounded-sm -mt-2 mb-0">
           <p className="text-sm">
             <strong>Tap your card, not your wallet!</strong> This ensures the credit card in your wallet won't be unintentionally charged.

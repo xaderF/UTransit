@@ -1,14 +1,8 @@
 import { useState } from "react";
-<<<<<<< HEAD
 
-const basicsAutoload = "https://placehold.co/288x180/0066CC/ffffff?text=AutoLoad";
-const basicsFares = "https://placehold.co/288x180/0066CC/ffffff?text=Fares";
-const basicsRefund = "https://placehold.co/288x180/0066CC/ffffff?text=Refund";
-=======
 import basicsAutoload from "@/assets/basics-autoload.jpg";
 import basicsFares from "@/assets/basics-fares.jpg";
 import basicsRefund from "@/assets/basics-refund.jpg";
->>>>>>> e99e5c3415204cfab57fff097378447f6b1eb8b0
 
 const tabs = [
   {
@@ -51,14 +45,13 @@ const tabs = [
 
 const CompassBasics = () => {
   const [activeTab, setActiveTab] = useState("new");
-  const active = tabs.find((t) => t.id === activeTab)!;
+  const active = tabs.find((tab) => tab.id === activeTab)!;
 
   return (
     <section className="bg-card py-10">
       <div className="max-w-[1080px] mx-auto px-4">
         <h2 className="text-2xl font-bold text-foreground mb-6">Compass basics</h2>
 
-        {/* Tabs */}
         <div className="flex flex-wrap border-b border-border mb-6">
           {tabs.map((tab) => (
             <button
@@ -75,7 +68,6 @@ const CompassBasics = () => {
           ))}
         </div>
 
-        {/* Content */}
         <div className="flex flex-col md:flex-row gap-8 items-start">
           <div className="md:w-72 flex-shrink-0">
             <img
