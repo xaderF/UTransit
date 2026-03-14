@@ -18,11 +18,6 @@ UofT transit workflows are fragmented across separate schedules, route lookup to
 - Prisma schema + PostgreSQL migration tooling
 - AWS deployment infrastructure templates and helper scripts
 
-## Product Visuals
-
-![UTransit hero visual](src/assets/hero-tap.png)
-![UTransit fare visual](src/assets/basics-fares.jpg)
-
 ## Tech Stack Used
 
 - Frontend: Vite, React, TypeScript, React Router, Tailwind CSS, TanStack Query
